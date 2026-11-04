@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.substring.docmind.kafka.AnalysisKafkaIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.72 s -- in com.substring.docmind.kafka.AnalysisKafkaIntegrationTest

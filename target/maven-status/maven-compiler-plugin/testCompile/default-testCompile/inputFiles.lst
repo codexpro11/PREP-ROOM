@@ -1,0 +1,10 @@
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/BrowserVerificationApplication.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/DocmindBackendApplicationTests.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/config/PersistentLocalVectorStoreTest.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/interview/InterviewAiTest.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/interview/InterviewIntegrationTest.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/interview/InterviewReportTest.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/interview/PronunciationExercisesTest.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/interview/WavAudioTest.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/kafka/AnalysisKafkaIntegrationTest.java
+/Users/CODE-X-PRO/Desktop/PROJECT-INTERVIEW/AI-DOC_READER/docmind-rag-based-project-main/src/test/java/com/substring/docmind/kafka/AnalysisOutboxPublisherTest.java

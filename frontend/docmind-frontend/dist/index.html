@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        let theme;
+        try { theme = localStorage.getItem('preproom-theme'); } catch {}
+        if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <meta name="theme-color" content="#245747" />
+    <meta name="description" content="Practice job interviews, improve communication, and find your voice with your personal Gemini AI coach." />
+    <title>PrepRoom — Your AI interview &amp; communication coach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/assets/index-DcPxgdpR.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BvCUac8y.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+

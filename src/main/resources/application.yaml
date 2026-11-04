@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: docmind-backend
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    admin:
+      auto-create: ${KAFKA_ENABLED:false}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
+        max.block.ms: 10000
+        delivery.timeout.ms: 10000
+        request.timeout.ms: 5000
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      max-poll-records: 1
+      properties:
+        max.poll.interval.ms: 600000
+    listener:
+      ack-mode: record
+app:
+  kafka:
+    enabled: ${KAFKA_ENABLED:false}
+    analysis-topic: ${KAFKA_ANALYSIS_TOPIC:preproom.interview.analysis.v1}
+    analysis-group: ${KAFKA_ANALYSIS_GROUP:preproom-feedback-v1}
+    partitions: ${KAFKA_TOPIC_PARTITIONS:3}
+    replicas: ${KAFKA_TOPIC_REPLICAS:1}
+    outbox-poll-ms: ${KAFKA_OUTBOX_POLL_MS:2000}
+    retry-delay-ms: ${KAFKA_RETRY_DELAY_MS:2000}
+    retry-attempts: ${KAFKA_RETRY_ATTEMPTS:2}
+server:
+  port: 8081

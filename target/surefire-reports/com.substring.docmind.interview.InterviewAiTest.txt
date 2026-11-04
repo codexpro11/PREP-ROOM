@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.substring.docmind.interview.InterviewAiTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.293 s -- in com.substring.docmind.interview.InterviewAiTest

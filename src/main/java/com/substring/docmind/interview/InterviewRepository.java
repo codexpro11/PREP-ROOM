@@ -11,4 +11,5 @@ public interface InterviewRepository extends JpaRepository<Interview, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select i from Interview i where i.id = :id and i.userId = :userId")
     Optional<Interview> lockOwned(@Param("id") UUID id, @Param("userId") Long userId);
+    boolean existsByIdAndUserId(UUID id, Long userId);
 }

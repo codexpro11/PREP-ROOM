@@ -1,7 +1,8 @@
 services:
   kafka:
     image: apache/kafka:4.1.2
-    profiles: [kafka]
+    profiles:
+      - kafka
     restart: unless-stopped
     ports:
       - "127.0.0.1:9092:9092"
@@ -22,11 +23,14 @@ services:
     volumes:
       - kafka-data:/var/lib/kafka/data
     healthcheck:
-      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1"]
+      test:
+        - CMD-SHELL
+        - /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1
       interval: 10s
       timeout: 10s
       retries: 12
       start_period: 20s
+
   postgres:
     image: pgvector/pgvector:pg16
     container_name: doc-mind-postgres
@@ -37,15 +41,36 @@ services:
       POSTGRES_DB: docmind
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: atharva11
-
     volumes:
       - ytpgdata:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d docmind" ]
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d docmind
       interval: 5s
       timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:8
+    container_name: preproom-redis
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6379:6379"
+    command:
+      - redis-server
+      - "--maxmemory"
+      - 128mb
+      - "--maxmemory-policy"
+      - allkeys-lru
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 5s
+      timeout: 3s
       retries: 5
 
 volumes:

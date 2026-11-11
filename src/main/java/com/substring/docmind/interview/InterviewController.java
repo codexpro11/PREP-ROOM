@@ -16,10 +16,21 @@ import static com.substring.docmind.interview.InterviewDtos.*;
 public class InterviewController {
     private final InterviewService service;
     private final InterviewReport report;
-    @GetMapping public List<Summary> list(Authentication auth) { return service.list((User) auth.getPrincipal()); }
+    private final InterviewerRateLimiter rateLimiter;
+
+    @GetMapping public List<Summary> list(Authentication auth)
+    {
+        return service.list((User) auth.getPrincipal());
+    }
     @PostMapping @ResponseStatus(HttpStatus.CREATED)
-    public Detail create(@Valid @RequestBody Setup setup, Authentication auth) { return service.create(setup, (User) auth.getPrincipal()); }
+    public Detail create(@Valid @RequestBody Setup setup, Authentication auth)
+    {
+        User user = (User) auth.getPrincipal();
+        rateLimiter.check(user.getId());
+        return service.create(setup, user);
+    }
     @GetMapping("/{id}") public Detail get(@PathVariable UUID id, Authentication auth) { return service.get(id, (User) auth.getPrincipal()); }
+
     @PostMapping("/{id}/answers") public Detail answer(@PathVariable UUID id, @Valid @RequestBody Answer answer, Authentication auth) {
         return service.answer(id, (User) auth.getPrincipal(), answer);
     }

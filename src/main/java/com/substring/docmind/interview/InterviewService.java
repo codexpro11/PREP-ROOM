@@ -22,6 +22,7 @@ public class InterviewService {
     private final InterviewAi ai;
     private final ObjectMapper json;
     private final ApplicationEventPublisher events;
+    private final InterviewResultCache resultCache;
 
     @Transactional
     public Detail create(Setup setup, User user) {
@@ -62,7 +63,17 @@ public class InterviewService {
 
     @Transactional(readOnly = true)
     public Detail get(UUID id, User user) {
-        return view(repository.findByIdAndUserId(id, user.getId()).orElseThrow(this::notFound));
+        Long userId = user.getId();
+
+        // Check ownership on every request, including cache hits.
+        if (!repository.existsByIdAndUserId(id, userId)) {
+            throw notFound();
+        }
+
+        return resultCache.getOrLoad(userId, id, () ->
+                view(repository.findByIdAndUserId(id, userId)
+                        .orElseThrow(this::notFound))
+        );
     }
 
     @Transactional

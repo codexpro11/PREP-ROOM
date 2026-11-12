@@ -1,6 +1,8 @@
 package com.substring.docmind.interview;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -15,6 +17,8 @@ import java.util.List;
 public class InterviewerRateLimiter {
 
     private final StringRedisTemplate redis;
+    private boolean enabled;
+    @Value("${app.rate-limit.enabled:true}")
 
     private static final DefaultRedisScript<Long> SCRIPT =
             new DefaultRedisScript<>("""
@@ -57,12 +61,19 @@ public class InterviewerRateLimiter {
                     "Unable to check the request limit."
             );
         }
+        if (!enabled)
+        {
+            return;
+        }
 
         if (allowed == 0L) {
             throw new ResponseStatusException(
                     HttpStatus.TOO_MANY_REQUESTS,
                     "Too many interview attempts. Try again in one minute."
             );
+
+            }
+
         }
+
     }
-}

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.web.client.RestClient;
 import org.springframework.http.*;
@@ -25,6 +26,8 @@ import static com.substring.docmind.interview.InterviewDtos.*;
         "spring.jpa.hibernate.ddl-auto=create-drop", "spring.ai.vectorstore.pgvector.initialize-schema=false",
         "spring.ai.google.genai.api-key=test-only", "spring.ai.google.genai.embedding.api-key=test-only",
         "jwt.secret=test-only-key-with-at-least-thirty-two-bytes-long" })
+
+@ActiveProfiles("test")
 class InterviewIntegrationTest {
     @LocalServerPort int port;
     @MockitoBean InterviewAi ai;

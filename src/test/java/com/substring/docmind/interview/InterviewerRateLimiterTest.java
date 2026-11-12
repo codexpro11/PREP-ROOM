@@ -25,6 +25,8 @@ class InterviewerRateLimiterTest {
         context.registerBean(StringRedisTemplate.class, () -> redis);
         context.register(InterviewerRateLimiter.class);
         context.refresh();
+        // Exclude Spring bean lifecycle callbacks from request interaction assertions.
+        clearInvocations(redis);
         return context;
     }
 

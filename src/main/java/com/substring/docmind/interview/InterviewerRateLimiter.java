@@ -17,8 +17,8 @@ import java.util.List;
 public class InterviewerRateLimiter {
 
     private final StringRedisTemplate redis;
-    private boolean enabled;
     @Value("${app.rate-limit.enabled:true}")
+    private boolean enabled;
 
     private static final DefaultRedisScript<Long> SCRIPT =
             new DefaultRedisScript<>("""
@@ -38,6 +38,10 @@ public class InterviewerRateLimiter {
             """, Long.class);
 
     public void check(Long userId) {
+        if (!enabled) {
+            return;
+        }
+
         String key = "preproom:limit:create:" + userId;
         Long allowed;
 
@@ -60,10 +64,6 @@ public class InterviewerRateLimiter {
                     HttpStatus.SERVICE_UNAVAILABLE,
                     "Unable to check the request limit."
             );
-        }
-        if (!enabled)
-        {
-            return;
         }
 
         if (allowed == 0L) {
